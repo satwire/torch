@@ -29,11 +29,15 @@ def plot_predictions(
 if __name__ == "__main__":
     # Check PyTorch version
     print(torch.__version__)
+    print(torch.cuda.is_available())
+    print(torch.cuda.device_count())
 
     # Line function is Y = bX + a.
+    # Create known parameters.
     weight = 0.7  # b
     bias = 0.3  # a
 
+    # Create dataset.
     start = 0
     end = 1
     step = 0.02
@@ -49,4 +53,5 @@ if __name__ == "__main__":
     X_test = X[train_split:]
     y_test = y[train_split:]
 
+    # Plot predictions
     plot_predictions(X_train, y_train, X_test, y_test)
