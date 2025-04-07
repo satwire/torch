@@ -1,13 +1,15 @@
 import matplotlib.pyplot as plt
 
 import torch
+from linear_regression import LinearRegressionModel
+from torch import Tensor
 
 
 def plot_predictions(
-    train_data: torch.Tensor,
-    train_labels: torch.Tensor,
-    test_data: torch.Tensor,
-    test_labels: torch.Tensor,
+    train_data: Tensor,
+    train_labels: Tensor,
+    test_data: Tensor,
+    test_labels: Tensor,
     predictions=None,
 ) -> None:
     plt.figure(figsize=(10, 7))
@@ -53,5 +55,13 @@ if __name__ == "__main__":
     X_test = X[train_split:]
     y_test = y[train_split:]
 
-    # Plot predictions
-    plot_predictions(X_train, y_train, X_test, y_test)
+    # Create initial linear regression model.
+    torch.manual_seed(42)
+    model_0 = LinearRegressionModel()
+
+    # Predict.
+    with torch.inference_mode():
+        y_preds = model_0(X_test)
+
+        # Plot predictions
+        plot_predictions(X_train, y_train, X_test, y_test, y_preds)
